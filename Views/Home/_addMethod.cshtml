@@ -1,0 +1,43 @@
+﻿@model RecipeWebApp.Models.Method
+
+@{ ViewBag.Title = "_addMethod"; }
+<style>
+#Instructions{
+    width: 90%;
+}
+table{
+    width:100%
+}
+</style>
+
+<!-- The Method Modal -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="mClose" class="close">
+                @Ajax.ActionLink("x", "_addMethod", new { RecipeId = ViewBag.RecipeId }, new AjaxOptions { UpdateTargetId = "targetMethod", InsertionMode = InsertionMode.Replace })
+            </span>
+            <h6 id="modalDetailsHeading"></h6>
+        </div>
+        <div id="contentContainer" class="modal-body">
+            <div id="detailsModalContent">
+                <h3 class="modelTitle page-heading">Add Method</h3>
+                @Html.ValidationSummary(true, "Failed Validation!", new { @class = "text-danger" })
+                    <table>
+                        <tr>
+                            <td>@Html.HiddenFor(model => model.RecipeId, new { RecipeId = ViewBag.RecipeId })</td>
+                            <td>@Html.TextAreaFor(model => model.Instructions)</td>
+                        </tr>
+                    </table>
+                    <br />
+                    <input class="btn-cookbook-standard" type="submit" value="Add Instruction" />
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <span class="placeholder"></span>
+            <dl>
+                <dd>@Html.ValidationMessageFor(model => model.Instructions, "", new { @class = "text-danger" })</dd>
+            </dl>
+        </div>
+    </div>
+<script src="~/scripts/edit_modal_close.js"></script>

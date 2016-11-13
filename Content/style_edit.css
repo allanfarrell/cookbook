@@ -1,0 +1,41 @@
+﻿#Time {
+    max-width: 50px;
+}
+#Name, #ImageUrl {
+   /* Firefox */ width: -moz-calc(95% - 110px);
+/* WebKit */ width: -webkit-calc(95% - 110px);
+/* Opera */ width: -o-calc(95% - 110px);
+/* Standard */ width: calc(95% - 110px);
+}
+.section-heading{
+    text-align:center;
+}
+.floatLeft{
+    float:left; width:48%;
+}
+.floatRight{
+    float:right; width:48%;
+}
+.table-custom{
+    width:100%;
+}
+.col-amount{
+     width:20%;
+}
+.td-method-v{
+    vertical-align:top;
+}
+.td-method-instructions{
+    width:70%;
+}
+.edit-label {
+     width: 100px;
+     text-align:right;
+     display: inline-block;
+     vertical-align: top;
+     margin-right: 10px;
+ }
+.update-button {
+    margin-left: 110px;
+    margin-bottom: 10px;
+}

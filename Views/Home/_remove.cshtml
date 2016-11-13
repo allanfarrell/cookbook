@@ -1,0 +1,34 @@
+﻿@model RecipeWebApp.Models.Recipe
+
+<style>
+    .btn-remove-success {
+        border: solid 1px forestgreen;
+        border-radius: 5px;
+        padding: 5px;
+        color: forestgreen;
+    }
+        .btn-remove-success:hover {
+        border: solid 1px forestgreen;
+        text-decoration: none;
+        border-radius: 5px;
+        padding: 5px;
+        color: forestgreen;
+    }
+        .btn-remove-failure {
+        background-color: white;
+        border: solid 1px indianred;
+        border-radius: 5px;
+        padding: 5px;
+        color: indianred;
+    }
+</style>
+
+<h3>Do you wish to delete, <strong>@Html.DisplayFor(model => model.Name)</strong>?</h3>
+<br />
+<div>
+    @using (Html.BeginForm())
+    {
+        <input type="submit" value="Yes, Remove" class="btn-remove-failure"/>
+        @Html.ActionLink("No, Keep", "Recipes", null, new { @class = "btn-remove-success" })
+    }
+</div>

@@ -1,0 +1,135 @@
+﻿@model IEnumerable<RecipeWebApp.Models.Recipe>
+@using RecipeWebApp.Controllers;
+@using RecipeWebApp.Models;
+
+@{ ViewBag.Title = "Recipes"; }
+@{ Layout = null;}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My ASP.NET Cookbook Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link href="~/Content/modal.css" rel="stylesheet" />
+    <link href="~/Content/index_style.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("..Forks over Knives..", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+    <!--- END NAV BAR-->
+    <div class="container body-content">
+        <h2 class="page-heading" style="display:inline-block; margin-right:5%;">My Recipes</h2>
+       
+        <input type="button" id="addBtn" value="Add Recipe" class="btn-cookbook-standard" />
+        <table class="tableRecipe" style="width:100%;">
+            <tr>
+                <th>Thumbnail</th>
+                <th style="width:20%;">@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Difficulty)</th>
+                <th style="width:5%;">@Html.DisplayNameFor(model => model.Time)</th>
+                <th>Ingredients</th>
+                <th>Method</th>
+                <th>Controls</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr class="main-rows">
+                    <td><img src="@Url.Content(item.ImageUrl)" alt="alternative text" style="width:100px;" /></td>
+                    <td style="width:20%;">@item.Name</td>
+                    <td>@item.Difficulty</td>
+                    <td style="width:10%;">@item.Time<span> min</span></td>
+                    <td>@item.iCount <span> ingredients</span></td>
+                    <td>@item.mCount <span> steps</span></td>
+                    <td>
+                        <input id="loadDetailsModal" class="detailsBtn btn-link" value="Details" type="button" data-url="@Url.Action("_details", new { id = item.RecipeId })" />
+                        @Html.ActionLink("Edit", "Edit", new { id = item.RecipeId })
+                        <button id="loadDeleteModal" class="deleteBtn btn-link" data-url="@Url.Action("_remove", new { id = item.RecipeId })">Remove</button>
+                    </td>
+                </tr>
+            }
+        </table>
+        <hr />
+
+        <!-- The Remove Modal -->
+        <div id="modalDelete" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">x</span>
+                    <h6 id="modalDeleteHeading"></h6>
+                </div>
+                <div id="codeContainer" class="modal-body">
+                    <div id="deleteModalContent"></div>
+                </div>
+                <div class="modal-footer">
+                    <span class="placeholder"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Details Modal -->
+        <div id="modalDetails" class="modal">
+            <div class="modal-content details">
+                <div class="modal-header">
+                    <span class="close">x</span>
+                    <h6 id="modalDetailsHeading"></h6>
+                </div>
+                <div id="contentContainer" class="modal-body">
+                    <div id="detailsModalContent"></div>
+                </div>
+                <div class="modal-footer">
+                    <span class="placeholder"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- AJAX CALL FOR ADD MODAL FORM-->
+        @using (Ajax.BeginForm("Add", "Home", new AjaxOptions
+        {
+            UpdateTargetId = "targetAdd",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST"
+        }))
+        {
+            <div id="modalAdd" class="modal">
+                <div id="targetAdd">
+                    <!-- Container to put Ajax response/partial back into -->
+                    @Html.Action("Add", "Home")
+                </div>
+            </div>
+        }
+        <!-- END METHOD FORM -->
+        
+
+        </div>
+    <footer class="navbar-inverse">
+        <br />
+        <span>&copy; @DateTime.Now.Year - My ASP.NET Cookbook Application</span>
+    </footer>
+    <script src="~/scripts/recipeModals.js"></script>
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/scripts/jquery.validate.min.js")"></script>
+    <script src="~/scripts/jquery.validate.unobtrusive.bootstrap.min.js"></script>
+</body>
+</html>

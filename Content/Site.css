@@ -1,0 +1,65 @@
+﻿body {
+    padding-top: 50px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select {
+    max-width: 280px;
+}
+dd {
+        margin-bottom: 0.8em;
+    }
+.ta-standard {
+    width: 400px;
+    height: 5em;
+    max-width: 400px;
+}
+
+a.navbar-brand {
+    color: darkgoldenrod !important;
+    font-family: 'Matura MT Script Capitals', sans-serif;
+    font-size: 1.5em;
+}
+
+a.navbar-brand:hover {
+    color: goldenrod !important;
+}
+
+.btn-cookbook-standard,
+.btn-cookbook-standard:hover,
+.btn-cookbook-standard:after {
+        border: solid 1px #428bca;
+        padding: 5px;
+        border-radius: 5px;
+        color: #428bca;
+        background-color: transparent;
+        text-decoration: none;
+    }
+
+.btn-modal, .btn-modal:hover, btn-modal:after {
+    border: none;
+    color: #428bca;
+    background-color: transparent;
+    text-decoration: none;
+}
+/* HEADING STYLING */
+
+.page-heading{
+        /*font-family: 'Matura MT Script Capitals';*/
+        text-shadow: 0 0 5px goldenrod;
+    }
+
+.style-box {
+    border: solid 1px black; padding: 10px; box-shadow: 0 0 5px goldenrod; border-radius: 5px;
+}
+.navbar-brand {
+    color: darkgoldenrod;
+    font-family: 'Matura MT Script Capitals', sans-serif;
+}

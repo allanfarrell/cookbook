@@ -1,0 +1,48 @@
+﻿@model RecipeWebApp.Models.Ingredient
+
+<!-- The Ingredient Modal -->
+<style>
+.modelTitle{
+        display:inline-block;
+        margin-top:0px;
+    }
+.td-amount, #Amount{
+    width:100px;
+    margin-right: 10px;
+}
+</style>
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="iClose" class="close">
+                @Ajax.ActionLink("x", "_addIngredient", new { RecipeId = ViewBag.RecipeId }, new AjaxOptions { UpdateTargetId = "targetIngredient", InsertionMode = InsertionMode.Replace })
+            </span>
+        </div>
+        <div id="contentContainer" class="modal-body">
+            <div id="detailsModalContent">
+                <h3 class="modelTitle page-heading">Add Ingredient</h3><span>
+                @Html.ValidationSummary(true, "Failed Validation!", new { @class = "text-danger modelTitle" })</span>
+                
+                <table>
+                    <tr>
+                        <th class="td-amount">Amount</th>
+                        <th>Ingredient</th>
+                    </tr>
+                    <tr>
+                        <td>@Html.EditorFor(model => model.Amount)</td>
+                        <td>@Html.EditorFor(model => model.IngredientName)</td>
+                        @Html.HiddenFor(model => model.RecipeId, new { RecipeId = ViewBag.RecipeId})
+                    </tr>
+                </table>
+                <br />
+                <input class="btn-cookbook-standard" type="submit" value="Add Ingredient" />
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <dl>
+                <dd>@Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })</dd>
+                <dd>@Html.ValidationMessageFor(model => model.IngredientName, "", new { @class = "text-danger" })</dd>
+            </dl>
+        </div>
+    </div>
+<script src="~/scripts/edit_modal_close.js"></script>

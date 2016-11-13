@@ -1,0 +1,62 @@
+﻿
+@{ Layout = null; }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <title>Index</title>
+    <style>
+        .heading-container{
+            position:absolute;
+            bottom:15vh;
+            right:20vw;
+            text-align:center;
+        }
+        .sub-heading-style,
+        .sub-heading-style:hover,
+        .sub-heading-style:after{
+            font-family: Calibri;
+            letter-spacing: 20px;
+            color: darkgoldenrod;
+            font-size: 1.5em;
+            font-weight: 550;
+            text-shadow: 0 0 5px black;
+            text-decoration: none;
+        }
+        .heading-style,
+        .heading-style:hover,
+        .heading-style:after{
+            font-family:'Matura MT Script Capitals';
+            color:darkgoldenrod; font-size:3em;
+            text-shadow: 0 0 5px black;
+            display:block;
+            text-decoration: none;
+        }
+        .enterLink,
+        .enterLink:hover,
+        .enterLink:after{
+            color: black;
+            font-size: 2em;
+            font-family:'Matura MT Script Capitals';
+        }
+    </style>
+</head>
+<body>
+        <div>
+            <img src="@Url.Content("~/Content/img/food-background.jpg")" alt="" style="height:100vh; width:100%">
+            <div>
+                <div  class="heading-container">
+                    <img src="@Url.Content("~/Content/img/logo1.png")" style="height:30vh; border-radius: 50%;">
+                    @Html.ActionLink("..Forks over Knives..", "Recipes", null, new { @class = "heading-style" })
+                    @Html.ActionLink("Personal Cookbook", "Recipes", null, new { @class = "sub-heading-style" })
+                </div>
+            </div>
+        </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

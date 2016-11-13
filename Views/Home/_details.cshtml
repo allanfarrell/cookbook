@@ -1,0 +1,73 @@
+﻿@model RecipeWebApp.Models.Recipe
+
+
+<style>
+.col-recipe{
+    float:left; width:24%; text-align:left;
+    }
+.col-ingredients{
+    float:left; width:24%;
+}
+.col-method{
+    float:right; width:48%;
+}
+.img-settings{
+    margin:auto; max-width:100%; max-height:250px; border-radius:5px;
+}
+</style>
+                <h2 class="modal-heading">@Html.DisplayFor(model => model.Name)</h2>
+                <div class="col-recipe">
+                    <ul class="list-unstyled" style="text-indent:25%;">
+                        <br />
+                        <li><strong>@Html.DisplayNameFor(model => model.Time):</strong> @Html.DisplayFor(model => model.Time)</li>
+                        <li><strong>@Html.DisplayNameFor(model => model.Difficulty):</strong> @Html.DisplayFor(model => model.Difficulty)</li>
+                        <br />
+                        <img class="img-settings" src="@Html.DisplayFor(model => model.ImageUrl)" alt="alternate text">
+                    </ul>
+                </div>
+
+
+                <div class="splitContainer">
+
+                    <!-- INGREDIENTS CONTAINER-->
+                    <div class="col-ingredients">
+                        <h4 style="text-align:center;">Ingredients</h4>
+                        @if (Model.Ingredient != null)
+            {
+                            <ul class="list-unstyled" style="text-indent: 25%;">
+                                @foreach (var ingr in Model.Ingredient)
+                {
+                                    <li>@ingr.Amount  @ingr.IngredientName</li>
+                                } <!-- CLOSE FOREACH -->
+                            </ul>
+                        } <!-- CLOSE IF -->
+                        <br />
+                    </div>
+
+                    <!-- METHOD CONTAINER-->
+                    <div class="col-method">
+                        <h4 style="text-align:center;">Instructions</h4>
+                        @if (Model.Ingredient != null)
+                        {
+                            {
+                                int i = 1; // Counter for Method Steps
+                                foreach (var meth in Model.Method)
+                                {
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <span><b>@i</b></span></td>
+                                                <td><span>@meth.Instructions</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    { i++; } // Increment Method Step Counter
+                                }
+                            } <!-- Close FOREACH -->
+                        } <!-- Close IF -->
+                        <br />
+                    </div>
+                </div>
+                <div style="clear:both;">
+                    <!-- Stop the layout footer from going underneath -->
+                </div>

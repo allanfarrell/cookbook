@@ -1,0 +1,10 @@
+﻿.main-rows{
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+td {
+    padding: 8px;
+}
+th {
+    padding: 8px;
+}

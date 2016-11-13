@@ -1,0 +1,76 @@
+﻿@model IEnumerable<RecipeWebApp.Models.Recipe>
+@using RecipeWebApp.Controllers;
+@using RecipeWebApp.Models;
+
+@{ ViewBag.Title = "Recipes"; }
+
+<link href="~/Content/modal.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/Content/index_style.css" type="text/css" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<h2 class="page-heading" style="display:inline-block; margin-right:5%;">My Recipes</h2>
+@Html.ActionLink("Add Recipe", "Add", null, new { @class = "btn-cookbook-standard" })
+
+<table class="tableRecipe" style="width:100%;">
+    <tr>
+        <th>Thumbnail</th>
+        <th style="width:20%;">@Html.DisplayNameFor(model => model.Name)</th>
+        <th>@Html.DisplayNameFor(model => model.Difficulty)</th>
+        <th style="width:5%;">@Html.DisplayNameFor(model => model.Time)</th>
+        <th>Ingredients</th>
+        <th>Method</th>
+        <th>Controls</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr class="main-rows">
+        <td><img src="@Url.Content(item.ImageUrl)" alt="alternative text" style="width:100px;" /></td>
+        <td style="width:20%;">@item.Name</td>
+        <td>@item.Difficulty</td>
+        <td style="width:10%;">@item.Time<span> min</span></td>
+        <td>@item.Ingredient.Count <span> ingredients</span></td>
+        <td>@item.Method.Count <span> steps</span></td>
+        <td>
+            <input id="loadDetailsModal" class="detailsBtn btn-link" value="Details" type="button" data-url="@Url.Action("_details", new { id = item.RecipeId })" />
+            @Html.ActionLink("Edit", "Edit", new { id = item.RecipeId })
+            <button id="loadDeleteModal" class="deleteBtn btn-link" data-url="@Url.Action("_remove", new { id = item.RecipeId })">Remove</button>
+        </td>
+    </tr>
+    }   
+    </table>
+<hr />
+
+<!-- The Remove Modal -->
+<div id="modalDelete" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">x</span>
+            <h6 id="modalDeleteHeading"></h6>
+        </div>
+        <div id="codeContainer" class="modal-body">
+            <div id="deleteModalContent"></div>
+        </div>
+        <div class="modal-footer">
+            <span class="placeholder"></span>
+        </div>
+    </div>
+</div>
+
+<!-- The Details Modal -->
+<div id="modalDetails" class="modal">
+    <div class="modal-content details">
+        <div class="modal-header">
+            <span class="close">x</span>
+            <h6 id="modalDetailsHeading"></h6>
+        </div>
+        <div id="contentContainer" class="modal-body">
+            <div id="detailsModalContent"></div>
+        </div>
+        <div class="modal-footer">
+            <span class="placeholder"></span>
+        </div>
+    </div>
+</div>
+
+<script src="~/scripts/recipeModals.js"></script>

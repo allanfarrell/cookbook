@@ -1,0 +1,113 @@
+﻿@model RecipeWebApp.Models.Recipe
+<link href="~/Content/modal.css" rel="stylesheet" />
+<link href="~/Content/style_edit.css" rel="stylesheet" />
+
+@using (Html.BeginForm())
+{
+    <h2 class="page-heading">Edit</h2>
+
+    @Html.ValidationSummary(true, "Failed Validation!", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.RecipeId, new { RecipeId = Model.RecipeId })
+
+    <div class="dl-horizontal floatLeft">
+            <p class="edit-label">@Html.LabelFor(model => model.Name)</p>
+            <span>@Html.TextAreaFor(model => model.Name)</span><br />
+            <span class="update-button">@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })</span><br />
+
+            <p class="edit-label">@Html.LabelFor(model => model.Time)</p>
+            <span>@Html.EditorFor(model => model.Time)<span> minutes</span></span>
+            <span>@Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })</span><br />
+
+            <p class="edit-label">@Html.LabelFor(model => model.Difficulty)</p>
+            <span>@Html.EditorFor(model => model.Difficulty)</span>
+            <span>@Html.ValidationMessageFor(model => model.Difficulty, "", new { @class = "text-danger" })</span><br />
+            
+            <input id="editUpdateBtn" type="submit" value="Update" class="btn-cookbook-standard update-button" />
+    </div>
+    <dl class="dl-horizontal floatRight">
+        <p class="edit-label">@Html.LabelFor(model => model.ImageUrl)</p>
+        <span>@Html.TextAreaFor(model => model.ImageUrl, new { @class = "ta-standard" })</span> <br />   
+        <span class="update-button">@Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })</span>
+    </dl>
+}
+<br style="clear:both;"/>
+
+<div class="containerAdd">
+    <div class="floatLeft style-box">
+        <h3 class="section-heading page-heading">Ingredients</h3>
+        <hr style="margin-top:0px;"/> <!-- Inline Style -->
+        <table class="table-custom">
+            @foreach (var ingredient in Model.Ingredient)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => ingredient.Amount)</td>
+                    <td>@Html.DisplayFor(modelItem => ingredient.IngredientName)</td>
+                    <td>@Html.ActionLink("Remove", "RemoveIngredientRecord", new { id = ingredient.IngredientId })</td>
+                </tr>
+            }
+        </table>
+        <br />
+        <input type="button" id="ingredientBtn" value="Add Ingredient" class="btn-modal" />
+    </div>
+
+    <div class="floatRight style-box">
+        <h3 class="section-heading page-heading">Method</h3>
+        <hr style="margin-top:0px;" /> <!-- Inline style -->
+        <table class="table-custom">
+            @{ int i = 1; }
+            @foreach (var method in Model.Method)
+            {
+                <tr>
+                    <td class="td-method-v">@i</td>
+                    <td class="td-method-instructions">@Html.DisplayFor(modelItem => method.Instructions)</td>
+                    <td class="td-method-v">@Html.ActionLink("Remove", "RemoveMethodRecord", new { id = method.MethodId })</td> 
+                </tr>
+                { i++; }
+            }
+                <tr>
+                    <td></td>
+                    <td><input type="button" id="methodBtn" value="Add Steps" class="btn-modal" /> </td>
+                </tr>
+        </table>
+        <br />
+        
+    </div>
+    </div>
+    <div style="clear:both;">
+        <br />
+    </div>
+                
+<!-- AJAX CALL FOR INGREDIENT MODAL FORM-->
+@using (Ajax.BeginForm("_addIngredient", "Home", new AjaxOptions
+{
+    UpdateTargetId = "targetIngredient",
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "POST"
+}))
+{
+    <div id="modalIngredient" class="modal">
+        <div id="targetIngredient">
+            <!-- Container to put Ajax response/partial back into -->
+            @Html.Action("_addIngredient", "Home", new { RecipeId = Model.RecipeId })
+        </div>
+    </div>
+        }
+        <!-- END INGREDIENT FORM -->
+
+        <!-- AJAX CALL FOR METHOD MODAL FORM-->
+        @using (Ajax.BeginForm("_addMethod", "Home", new AjaxOptions
+        {
+            UpdateTargetId = "targetMethod",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST"
+        }))
+        {
+            <div id="modalMethod" class="modal">
+                <div id="targetMethod">
+                    <!-- Container to put Ajax response/partial back into -->
+                    @Html.Action("_addMethod", "Home", new { RecipeId = Model.RecipeId })
+                </div>
+                </div>
+                }
+                <!-- END METHOD FORM -->
+       <script src="~/scripts/modal.js"></script>
